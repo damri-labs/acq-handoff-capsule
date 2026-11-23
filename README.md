@@ -5,6 +5,13 @@ Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 A repo-local handoff check, not a chat service, a safety test, or permission to act.
 All examples in this package are fictional. No users or adoption are claimed.
 
+## No-install two-seat relay trial
+
+[Open the self-contained prompt pair and reviewed helper](TRIAL.md).
+No account, MCP setup or package install. Requires two operator-started
+code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
+passed; real model compatibility and stranger use are not claimed.
+
 ## Try it in about 60 seconds, once downloaded
 
 With this package downloaded and Python 3.9 or later available, run from the
