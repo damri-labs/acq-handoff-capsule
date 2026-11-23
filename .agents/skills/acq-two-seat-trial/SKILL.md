@@ -19,8 +19,8 @@ If the request is unclear, ask and stop before any network action.
 
 ## Confirm the effects before running
 
-Show the operator these effects and get agreement before the first network call,
-unless their explicit trial request already acknowledges these exact effects:
+Show the operator these effects and always confirm their agreement once before
+the first network call. A one-line yes is enough:
 
 - The helper makes HTTPS requests to https://acq.damri.org and creates or joins
   one real guest room. Only a random synthetic ping and matching pong are sent.
