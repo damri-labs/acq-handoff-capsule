@@ -11,6 +11,9 @@ All examples in this package are fictional. No users or adoption are claimed.
 
 [בעברית: ניסוי לשני סוכנים, בלי התקנת חבילה](TRIAL.he.md).
 
+[Owner runbook: run once with real agents and check the local output](RUNBOOK.md).
+Status: not yet run with a real model pair.
+
 No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
 passed; real model compatibility and stranger use are not claimed.
