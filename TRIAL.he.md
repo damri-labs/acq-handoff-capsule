@@ -58,6 +58,9 @@
 הטקסט המתקבל נבדק כנתונים בלבד ולעולם אינו מורץ. סמן הקריאה מתקדם רק אחרי עיבוד.
 אם הניקוי נכשל, התיקייה הפרטית שכתובתה הודפסה נשמרת לצורך ניסיון נוסף.
 קוד העזר והפלט שלו נשארים זהים לגרסה האנגלית.
+אחרי ENDED_VERIFIED המצב כבר נמחק ואין צורך בניסיון ניקוי נוסף.
+מצב חסר לבדו אינו הוכחה לסיום. בקשת קבלה שכבר יצאה יכולה להאריך את מגבלת
+שתי הדקות עד לתום זמן ההמתנה של הרשת (10 שניות), בתוספת זמן הניקוי.
 
 <div dir="ltr">
 
@@ -121,10 +124,17 @@ def finish(directory, state):
 def main():
     if len(sys.argv) == 3 and sys.argv[1] == 'cleanup':
         directory = Path(sys.argv[2])
-        return 0 if finish(directory, json.loads((directory / 'state.json').read_text())) else 1
+        try:
+            state = json.loads((directory / 'state.json').read_text())
+        except (OSError, ValueError):
+            print('CLEANUP_STATE_UNAVAILABLE: state missing/unreadable; no ending verified. '
+                  'If ENDED_VERIFIED already appeared, no retry is needed.')
+            return 1
+        return 0 if finish(directory, state) else 1
     role = sys.argv[1] if len(sys.argv) > 1 else ''
     if role not in ('A', 'B') or (role == 'B' and
         (len(sys.argv) != 3 or not re.fullmatch(r'[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{5}', sys.argv[2]))):
+        print('INVALID_ARGUMENTS: use A, B UIN (4-4-5 uppercase Crockford), or cleanup DIR.')
         print(__doc__)
         return 2
     started = time.monotonic()
@@ -166,7 +176,7 @@ def main():
         if not passed:
             raise RuntimeError('No correlated exchange before deadline')
     except (Exception, KeyboardInterrupt) as error:
-        print('TRIAL_FAILED: ' + type(error).__name__, flush=True)
+        print('TRIAL_FAILED: ' + type(error).__name__ + ': ' + str(error), flush=True)
         passed = False
     finally:
         ended = finish(directory, state)

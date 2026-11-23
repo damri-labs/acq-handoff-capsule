@@ -55,6 +55,9 @@ Each agent saves the same helper locally. It uses only Python's standard library
 No curl-to-shell, remote code execution, dependency or tracking is added. Received
 text is matched as data, never run. A cursor advances only after processing.
 On a failed cleanup the printed private directory is retained for retry.
+After ENDED_VERIFIED, state is already removed and no cleanup retry is needed.
+Missing state alone is not proof of ending. A poll already in flight can extend
+the two-minute deadline by up to its network timeout (10 seconds), plus cleanup.
 
 ```python
 #!/usr/bin/env python3
@@ -116,10 +119,17 @@ def finish(directory, state):
 def main():
     if len(sys.argv) == 3 and sys.argv[1] == 'cleanup':
         directory = Path(sys.argv[2])
-        return 0 if finish(directory, json.loads((directory / 'state.json').read_text())) else 1
+        try:
+            state = json.loads((directory / 'state.json').read_text())
+        except (OSError, ValueError):
+            print('CLEANUP_STATE_UNAVAILABLE: state missing/unreadable; no ending verified. '
+                  'If ENDED_VERIFIED already appeared, no retry is needed.')
+            return 1
+        return 0 if finish(directory, state) else 1
     role = sys.argv[1] if len(sys.argv) > 1 else ''
     if role not in ('A', 'B') or (role == 'B' and
         (len(sys.argv) != 3 or not re.fullmatch(r'[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{5}', sys.argv[2]))):
+        print('INVALID_ARGUMENTS: use A, B UIN (4-4-5 uppercase Crockford), or cleanup DIR.')
         print(__doc__)
         return 2
     started = time.monotonic()
@@ -161,7 +171,7 @@ def main():
         if not passed:
             raise RuntimeError('No correlated exchange before deadline')
     except (Exception, KeyboardInterrupt) as error:
-        print('TRIAL_FAILED: ' + type(error).__name__, flush=True)
+        print('TRIAL_FAILED: ' + type(error).__name__ + ': ' + str(error), flush=True)
         passed = False
     finally:
         ended = finish(directory, state)
