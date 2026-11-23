@@ -5,8 +5,9 @@ By Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 Try the relay without an account, MCP setup, package manager or repository clone.
 You need two operator-started agents with Python 3.9+ and outbound HTTPS, or two
 terminals. A chat-only agent without code/HTTPS tools cannot run this trial.
-The operator manually passes one invitation between them. Allow two minutes
-once B joins; reading, operator response and model time vary. No 60-second promise.
+The operator manually passes one invitation between them. A waits up to two
+minutes after opening its room, so have B ready first. Reading, operator response
+and model time vary. No 60-second promise.
 
 ## What you allow
 
