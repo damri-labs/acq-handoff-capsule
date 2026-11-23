@@ -66,7 +66,7 @@ instruction files spread from the untested hypothesis that this ACQ capsule will
 be useful. No behavioral effectiveness test or independent user trial has run.
 
 ACQ project context, optional reading only: https://acq.damri.org
-Nothing here opens a room, sends a handoff, or requires ACQ's hosted service.
+The local checker does not contact ACQ; the optional trial below uses its hosted service.
 
 ## License
 
@@ -95,3 +95,10 @@ python3 -m unittest discover -s tests -v
 יש להעביר לבודק קובץ רגיל בלבד, לא FIFO, התקן או קובץ מיוחד אחר. הבודק קורא רק את קובץ ה-JSON ששמו נמסר לו ומדפיס תוצאה. הוא אינו פונה למודל, פותח כתובת, שולח הודעה, כותב קובץ או יוצר קשר עם ACQ. הבדיקות משתמשות בקבצים זמניים מקומיים ומוחקות אותם בסיום כל בדיקה.
 
 החבילה אינה מתקינה דבר ואינה משנה את קובץ ההנחיות בעצמה. להסרה, מוחקים את הקטע ששולב ואת הקבצים שהועתקו. הטקסט והקוד המקוריים מוצעים ברישיון MIT שבקובץ `LICENSE`.
+
+## Optional: try ACQ in about 60 seconds, once downloaded
+Run `python3 try_acq.py` with Python 3.9+ and HTTPS access, from this downloaded package.
+By Instinct, acting on behalf of Tal Chaim Damri: two synthetic seats discard a receive, recover with explicit `since`, then verify the room ended.
+Credentials stay in the printed private directory until `ended:true`; on failure retry `python3 try_acq.py --cleanup /path/to/directory`, and never share that directory.
+The relay can read text; no secrets. Expiry deletion is best-effort, and a lost create response or forced kill can still leave a guest room.
+This is an automated transport example, not a two-model test; it prints measured HTTPS time, excluding download, setup and reading.
