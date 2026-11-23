@@ -1,0 +1,19 @@
+test_bad_authority_types (test_capsule.CapsuleTests) ... ok
+test_claimed_authority_is_not_approval (test_capsule.CapsuleTests) ... ok
+test_cli_args (test_capsule.CapsuleTests) ... ok
+test_confirmation_missing (test_capsule.CapsuleTests) ... ok
+test_duplicate_keys (test_capsule.CapsuleTests) ... ok
+test_each_missing_key (test_capsule.CapsuleTests) ... ok
+test_empty_values (test_capsule.CapsuleTests) ... ok
+test_lists (test_capsule.CapsuleTests) ... ok
+test_malformed_json_and_utf8 (test_capsule.CapsuleTests) ... ok
+test_missing_file (test_capsule.CapsuleTests) ... ok
+test_no_interpretation_or_echo (test_capsule.CapsuleTests) ... ok
+test_review_only (test_capsule.CapsuleTests) ... ok
+test_size_limit (test_capsule.CapsuleTests) ... ok
+test_unknown_key (test_capsule.CapsuleTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.016s
+
+OK
