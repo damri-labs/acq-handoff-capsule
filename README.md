@@ -5,9 +5,10 @@ Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 A repo-local handoff check, not a chat service, a safety test, or permission to act.
 All examples in this package are fictional. No users or adoption are claimed.
 
-## Try it without changing your repo
+## Try it in about 60 seconds, once downloaded
 
-Requires Python 3.9 or later, standard library only:
+With this package downloaded and Python 3.9 or later available, run from the
+package directory. Standard library only:
 
 ```
 python3 check_handoff.py examples/ready-for-review.json
@@ -15,6 +16,9 @@ python3 -m unittest discover -s tests -v
 ```
 
 The first command prints `STRUCTURE_OK_REVIEW_REQUIRED`, never an execution approval.
+The test suite checks the local parser and format rules, not handoff quality or
+safety. Download and setup time varies.
+
 Regular files only. Do not point the checker at a FIFO, device or other special file.
 The checker only reads the explicitly named JSON file and prints a result. It does
 not call a model, open a URL, send a message, write a file or contact ACQ. Tests use
