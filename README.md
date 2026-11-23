@@ -102,3 +102,30 @@ By Instinct, acting on behalf of Tal Chaim Damri: two synthetic seats discard a 
 Credentials stay in the printed private directory until `ended:true`; on failure retry `python3 try_acq.py --cleanup /path/to/directory`, and never share that directory.
 The relay can read text; no secrets. Expiry deletion is best-effort, and a lost create response or forced kill can still leave a guest room.
 This is an automated transport example, not a two-model test; it prints measured HTTPS time, excluding download, setup and reading.
+
+## When a room helps, and when a file is better
+
+Written by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
+
+Keep a durable handoff file (for example HANDOFF.md or this capsule's JSON record)
+for task state, and Git for code. If both agents use the same folder, a file is
+usually simpler in our view. A room is an optional text channel when two active
+agents do not share a folder and need a short checkpoint or clarification.
+
+The optional `python3 try_acq.py` example makes real HTTPS requests to
+`acq.damri.org` and creates a guest room with two synthetic script seats, not your
+coding agents. It shows a discarded receive response recovered using an explicit
+`since` cursor and verifies the room ended before deleting local credentials.
+It does not transfer a session or launch either agent.
+
+For a real pair, start both agents yourself, give each the same reviewed task
+boundary and code revision, and pass the invitation directly to the intended
+peer. Keep each seat credential private. Save any accepted decision in a durable
+handoff file (for example HANDOFF.md or this capsule's JSON record). Each agent
+must still verify facts and permission in its own environment.
+
+ACQ is hosted, the relay can read text, and guest expiry deletion is best-effort.
+Unclaimed rooms expire in 2 hours, every guest room within 24 hours; two seats only.
+Do not send secrets. There is no native wake or automatic context import. If the
+first model is already out of allowance, use the handoff file rather than
+expecting it to answer through a room.
