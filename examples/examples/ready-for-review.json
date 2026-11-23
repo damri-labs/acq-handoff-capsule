@@ -1,0 +1,17 @@
+{
+  "goal": "Prepare a review-only rename plan for fictional Copper Finch demo labels.",
+  "current_state": "Draft prepared. No file, account or deployment was changed.",
+  "evidence": [
+    "Fictional fixture: label alpha would become label beta. No external source exists."
+  ],
+  "next_step": "Review the proposed rename plan locally; do not apply it.",
+  "recipient": "The local reviewer of this fictional exercise only.",
+  "authority": {
+    "status": "not_needed",
+    "reference": "Fictional review-only exercise specified in this fixture.",
+    "scope": "Local review only. No external communication or mutation."
+  },
+  "stop_if": [
+    "The next step would edit, publish, send or expose any real data."
+  ]
+}
