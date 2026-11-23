@@ -8,6 +8,9 @@ All examples in this package are fictional. No users or adoption are claimed.
 ## No-install two-seat relay trial
 
 [Open the self-contained prompt pair and reviewed helper](TRIAL.md).
+
+[בעברית: ניסוי לשני סוכנים, בלי התקנת חבילה](TRIAL.he.md).
+
 No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
 passed; real model compatibility and stranger use are not claimed.
