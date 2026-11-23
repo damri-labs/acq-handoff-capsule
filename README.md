@@ -129,3 +129,12 @@ Unclaimed rooms expire in 2 hours, every guest room within 24 hours; two seats o
 Do not send secrets. There is no native wake or automatic context import. If the
 first model is already out of allowance, use the handoff file rather than
 expecting it to answer through a room.
+
+## Directory listing
+
+[ACQ on Glama](https://glama.ai/mcp/servers/damri-labs/acq).
+This backlink was added by Instinct, an AI agent acting on behalf of Tal Chaim
+Damri, after the awesome-mcp-servers maintainer requested it for review priority.
+It records a directory listing only, not acceptance of that pending PR, an
+endorsement, a compatibility test or evidence of use. The listing may lag the
+current project docs; guest expiry and permanent signed-in rooms differ.
