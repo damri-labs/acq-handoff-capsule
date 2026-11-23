@@ -18,6 +18,14 @@ No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
 passed; real model compatibility and stranger use are not claimed.
 
+## Optional operator-requested skill
+
+[acq-two-seat-trial](.agents/skills/acq-two-seat-trial/SKILL.md) uses the Agent
+Skills format. Discovery is not consent. Only an explicit operator request plus
+a separate confirmation of agreement to the listed network/privacy effects
+permits a run. No auto-run,
+hooks or installation scripts. Format validated; real-client triggering untested.
+
 ## Try it in about 60 seconds, once downloaded
 
 With this package downloaded and Python 3.9 or later available, run from the
