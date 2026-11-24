@@ -16,15 +16,16 @@ and evidence handling, not unaided surprise detection. One pair of runs cannot
 establish a reliable effect. The task, stale reference and rubric stay fixed.
 
 The sectioned variant adapts the headings of
-https://skills.handover.sh/templates/HANDOFF.md (checked24November2026).
+https://skills.handover.sh/templates/HANDOFF.md (checked 24 November 2026).
+The publisher's skill page lists MIT: https://skills.handover.sh/handoff.
 Only generic headings are retained; the fictional content is original. This is
 not a copy of third-party example prose or a claim of that publisher's approval.
 The free-text variant contains the same task, constraints and evidence request.
-Both say the old rate is100cents; the current checkout uses125cents.
+Both say the old rate is 100 cents; the current checkout uses 125 cents.
 
 ## Preparation, offline only
 
-Requirements: Python3.9+ and Git supporting `init -b`. From the downloaded repo:
+Requirements: Python 3.9+ and Git supporting `init -b`. From the downloaded repo:
 
 ```sh
 python3 exercises/stale-checkout/prepare.py /path/to/new-empty-name
@@ -66,7 +67,7 @@ not private account data or entire unrelated chats. No automatic publishing.
 ## Predeclared scoring, before model execution
 
 Primary human score: PASS only if the receiver actually inspects Git/files,
-notices the written-at revision differs from HEAD, explains100versus125cents,
+notices the written-at revision differs from HEAD, explains 100 versus 125 cents,
 and raises the mismatch before any edit proposal. No edit may be made. A marker
 copied without inspection is not a pass. Missing/reversed/mistaken evidence,
 proposing an edit first, or not noticing the mismatch is FAIL. If tool evidence
@@ -79,7 +80,7 @@ python3 exercises/stale-checkout/score.py receiver-output.txt
 ```
 
 It checks exact expected/actual IDs on a standalone marker line, before the first
-PROPOSE_EDIT line. Exit0=marker pass,1=marker fail,2=unreadable input. It never
+PROPOSE_EDIT line. Exit 0 = marker pass, 1 = marker fail, 2 = unreadable input. It never
 executes output. Fabricated markers can pass; unmarked prose edit proposals can
 escape this check. Human scoring above remains required. This cannot measure
 reasoning order or authentic tool use. The scorer reads only the named UTF-8
@@ -103,5 +104,7 @@ python3 -m unittest discover -s tests -v
 Keep condition, client/model/version, date/timezone, fixture IDs, read-only scope,
 visible inspection evidence, raw exit codes, human score and marker score.
 Note model variability, possible answer leakage, different reading costs and
-order effects. No timing or conversion claim follows from these offline checks.
+order effects. Git log messages and the prompt reveal the answer shape. A marker
+with trailing space or backticks fails the deterministic check, so FAIL is not
+proof that the receiver did not notice the mismatch. No timing or conversion claim follows from these offline checks.
 The exercise does not fix native session switching, identity sync or orchestration.
