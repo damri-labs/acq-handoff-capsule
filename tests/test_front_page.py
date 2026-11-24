@@ -29,10 +29,15 @@ class FrontPage(unittest.TestCase):
 
     def test_changed_prose_has_no_glued_digit_words(self):
         texts = [(ROOT / n).read_text() for n in ['README.md', 'SECURITY.md']]
-        texts.append(ast.get_docstring(ast.parse((ROOT / 'examples/pair_review.py').read_text())))
+        tree = ast.parse((ROOT / 'examples/pair_review.py').read_text())
+        texts.append(ast.get_docstring(tree))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == 'print':
+                texts.extend(part.value for arg in node.args for part in ast.walk(arg)
+                             if isinstance(part, ast.Constant) and isinstance(part.value, str))
         for text in texts:
             text = re.sub(r'```.*?```|`[^`]*`|https?://\S+', '', text, flags=re.S)
-            text = re.sub(r'\b[0-9a-f]{40}\b', '', text)
+            text = re.sub(r'\b[0-9a-f]{40}\b|%\.\d+f', '', text)
             # Existing command names and illustrative invitation are identifiers.
             text = re.sub(r'\bpython3\b|\bK4TZ-9M0X-3PW7Q\b', '', text)
             self.assertIsNone(re.search(r'[A-Za-z]\d|\d[A-Za-z]', text))
