@@ -56,3 +56,12 @@ class CardTests(unittest.TestCase):
         self.assertIn('same separate effects confirmations', text)
         self.assertIn("starts when its room opens", text)
         self.assertIn('offline preparation only, not permission', text)
+
+    def test_readme_flow_and_png_present(self):
+        text = (cards.ROOT / 'README.md').read_text(encoding='utf-8')
+        flow = text.split('## B-first sequence', 1)[1].split('## No-install', 1)[0]
+        self.assertIn('Text equivalent:', flow)
+        self.assertLess(flow.index('READY_FOR_INVITE'), flow.index('INVITE_UIN'))
+        for word in ['separate yes', '120-second wait starts at room opening', 'No native wake', 'relay can read text', 'Missing state is not proof']:
+            self.assertIn(word, flow)
+        self.assertTrue((cards.ROOT / 'docs/1-two-seat-flow.png').read_bytes().startswith(b'\x89PNG\r\n\x1a\n'))
