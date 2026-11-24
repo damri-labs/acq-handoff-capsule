@@ -58,6 +58,9 @@
 הטקסט המתקבל נבדק כנתונים בלבד ולעולם אינו מורץ. סמן הקריאה מתקדם רק אחרי עיבוד.
 אם הניקוי נכשל, התיקייה הפרטית שכתובתה הודפסה נשמרת לצורך ניסיון נוסף.
 קוד העזר והפלט שלו נשארים זהים לגרסה האנגלית.
+כשל מדווח עם שלב קבוע, סוג חריגה וקוד HTTP מספרי כשיש, בלי טקסט החריגה,
+גוף תשובה או כתובת URL. הסמן SEND_OUTCOME_UNVERIFIED אומר ששליחה שנכשלה
+אולי הגיעה לממסר; קוד העזר אינו מנסה לשלוח אותה שוב.
 אחרי ENDED_VERIFIED המצב כבר נמחק ואין צורך בניסיון ניקוי נוסף.
 מצב חסר לבדו אינו הוכחה לסיום. בקשת קבלה שכבר יצאה יכולה להאריך את מגבלת
 שתי הדקות עד לתום זמן ההמתנה של הרשת (10 שניות), בתוספת זמן הניקוי.
@@ -79,6 +82,7 @@ import shutil
 import sys
 import tempfile
 import time
+import urllib.error
 import urllib.request
 import uuid
 
@@ -145,24 +149,31 @@ def main():
     print('Instinct, acting on behalf of Tal Chaim Damri. Scripted seat ' + role, flush=True)
     print('Private recovery directory, do not share: ' + str(directory), flush=True)
     passed = False
+    stage = 'create' if role == 'A' else 'join'
     try:
         created = call('POST', '/room' if role == 'A' else '/room/' + sys.argv[2] + '/join', {})
+        stage = 'create-response' if role == 'A' else 'join-response'
         state.update(room=created['roomId'] if role == 'A' else sys.argv[2], token=created['token'])
         save(directory, state)
         path = '/room/' + state['room'] + '/msg'
         if role == 'A':
             print('INVITE_UIN=' + state['room'], flush=True)
             payload = 'ACQ_PING:' + state['cid']
+            stage = 'send'
             call('POST', path, {'text': payload, 'end': False, 'cid': state['cid']}, state['token'])
         cursor = 0
         deadline = time.monotonic() + 120
         while time.monotonic() < deadline:
+            stage = 'receive'
             response = call('GET', path + '?since=' + str(cursor) + '&wait=5', token=state['token'])
+            stage = 'receive-response'
             for message in response['messages']:
                 text = message.get('text', '')
                 if role == 'B' and re.fullmatch(r'ACQ_PING:[0-9a-f]{32}', text):
+                    stage = 'send'
                     call('POST', path, {'text': text.replace('ACQ_PING:', 'ACQ_PONG:', 1),
                         'end': False, 'cid': state['cid']}, state['token'])
+                    stage = 'receive-response'
                     print('PING_RECEIVED; PONG_SENT_VIA_ROOM.', flush=True)
                     passed = True
                 elif role == 'A' and text == 'ACQ_PONG:' + state['cid']:
@@ -173,10 +184,17 @@ def main():
                 break
             if response.get('ended'):
                 break
+        stage = 'exchange-check'
         if not passed:
             raise RuntimeError('No correlated exchange before deadline')
     except (Exception, KeyboardInterrupt) as error:
-        print('TRIAL_FAILED: ' + type(error).__name__ + ': ' + str(error), flush=True)
+        # Fixed stage, exception class and numeric status only; never bodies or URLs.
+        detail = type(error).__name__
+        if isinstance(error, urllib.error.HTTPError):
+            detail += ' HTTP=' + str(error.code)
+        print('TRIAL_FAILED: stage=' + stage + ' ' + detail, flush=True)
+        if stage == 'send':
+            print('SEND_OUTCOME_UNVERIFIED: not retried; cleanup still attempted.', flush=True)
         passed = False
     finally:
         ended = finish(directory, state)
@@ -208,10 +226,12 @@ if __name__ == '__main__':
 זו הרצת תרגול של התעבורה, לא בדיקה של שני מודלים, אימוץ או תאימות לכל סוכן.
 העברת ההזמנה דרך המפעיל נשארת שלב ידני. אין מנגנון השכמה מובנה.
 
-תרגול חי הצליח: A בתוך 1.935 שניות, B בתוך 1.626 שניות, ובסך הכול 2.004 שניות,
+תרגול חי קודם, לפני שינוי אבחון הכשלים (פלט שלב וסוג חריגה בלבד):
+הצליח: A בתוך 1.935 שניות, B בתוך 1.626 שניות, ובסך הכול 2.004 שניות,
 בלי לכלול קריאה, הכנה, מסירת הזמנה ועבודת מודל. בשני המושבים אומת `ended:true`,
 ושתי תיקיות השחזור הפרטיות לא היו קיימות לאחר מכן. כשל שנמצא: הדוגמה הקודמת
-הייתה תלויה בייבוא קוד מתוך המאגר, לכן קוד העזר הזה עצמאי לחלוטין.
+הייתה תלויה בייבוא קוד מתוך המאגר, לכן קוד העזר נעשה עצמאי באותו שלב.
+הזמנים האלה אינם מאמתים את הגרסה הנוכחית עם שינוי אבחון הכשלים.
 אין בכך הוכחה שההנחיות עובדות בכל לקוח סוכן. לא הורץ זוג מודלים אמיתי
 ולא נערך ניסוי עם משתתף חיצוני.
 

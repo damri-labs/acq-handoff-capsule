@@ -54,6 +54,9 @@ Never print seat tokens. This does not launch, wake or control the other agent.
 Each agent saves the same helper locally. It uses only Python's standard library.
 No curl-to-shell, remote code execution, dependency or tracking is added. Received
 text is matched as data, never run. A cursor advances only after processing.
+Failures report a fixed stage, exception class and numeric HTTP status when available,
+never exception text, response bodies or URLs. SEND_OUTCOME_UNVERIFIED means a
+failed send may have reached the relay; the helper does not retry it.
 On a failed cleanup the printed private directory is retained for retry.
 After ENDED_VERIFIED, state is already removed and no cleanup retry is needed.
 Missing state alone is not proof of ending. A poll already in flight can extend
@@ -74,6 +77,7 @@ import shutil
 import sys
 import tempfile
 import time
+import urllib.error
 import urllib.request
 import uuid
 
@@ -140,24 +144,31 @@ def main():
     print('Instinct, acting on behalf of Tal Chaim Damri. Scripted seat ' + role, flush=True)
     print('Private recovery directory, do not share: ' + str(directory), flush=True)
     passed = False
+    stage = 'create' if role == 'A' else 'join'
     try:
         created = call('POST', '/room' if role == 'A' else '/room/' + sys.argv[2] + '/join', {})
+        stage = 'create-response' if role == 'A' else 'join-response'
         state.update(room=created['roomId'] if role == 'A' else sys.argv[2], token=created['token'])
         save(directory, state)
         path = '/room/' + state['room'] + '/msg'
         if role == 'A':
             print('INVITE_UIN=' + state['room'], flush=True)
             payload = 'ACQ_PING:' + state['cid']
+            stage = 'send'
             call('POST', path, {'text': payload, 'end': False, 'cid': state['cid']}, state['token'])
         cursor = 0
         deadline = time.monotonic() + 120
         while time.monotonic() < deadline:
+            stage = 'receive'
             response = call('GET', path + '?since=' + str(cursor) + '&wait=5', token=state['token'])
+            stage = 'receive-response'
             for message in response['messages']:
                 text = message.get('text', '')
                 if role == 'B' and re.fullmatch(r'ACQ_PING:[0-9a-f]{32}', text):
+                    stage = 'send'
                     call('POST', path, {'text': text.replace('ACQ_PING:', 'ACQ_PONG:', 1),
                         'end': False, 'cid': state['cid']}, state['token'])
+                    stage = 'receive-response'
                     print('PING_RECEIVED; PONG_SENT_VIA_ROOM.', flush=True)
                     passed = True
                 elif role == 'A' and text == 'ACQ_PONG:' + state['cid']:
@@ -168,10 +179,17 @@ def main():
                 break
             if response.get('ended'):
                 break
+        stage = 'exchange-check'
         if not passed:
             raise RuntimeError('No correlated exchange before deadline')
     except (Exception, KeyboardInterrupt) as error:
-        print('TRIAL_FAILED: ' + type(error).__name__ + ': ' + str(error), flush=True)
+        # Fixed stage, exception class and numeric status only; never bodies or URLs.
+        detail = type(error).__name__
+        if isinstance(error, urllib.error.HTTPError):
+            detail += ' HTTP=' + str(error.code)
+        print('TRIAL_FAILED: stage=' + stage + ' ' + detail, flush=True)
+        if stage == 'send':
+            print('SEND_OUTCOME_UNVERIFIED: not retried; cleanup still attempted.', flush=True)
         passed = False
     finally:
         ended = finish(directory, state)
@@ -200,9 +218,11 @@ working directories and no ACQ package, account or saved credentials. It is a
 transport rehearsal, not a two-model test, adoption, or universal compatibility.
 The operator-mediated invitation remains a manual step. No native wake exists.
 
-Live rehearsal PASS: A 1.935 seconds, B 1.626 seconds, overall 2.004 seconds
+Earlier live rehearsal, before the failure-diagnostics edit (stage/class output only):
+PASS: A 1.935 seconds, B 1.626 seconds, overall 2.004 seconds
 excluding reading, setup, invitation delivery and model work. Both seats
 verified ended:true, and both private recovery directories were absent afterward.
 Failure found: the earlier example depended on a repository import, so this
-helper is fully self-contained. It does not prove the prompts work in every
+helper became fully self-contained at that point. These timings do not validate
+the current failure-diagnostics revision. It does not prove the prompts work in every
 agent client. No real model pair or outsider trial ran.
