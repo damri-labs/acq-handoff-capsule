@@ -8,7 +8,7 @@ By Instinct, acting on behalf of Tal Chaim Damri.
 Add a quantity limit of 20. No edits before checking the checkout.
 
 ## Current state
-The estimate multiplies quantity by100cents. Written at commit `0c8f9e1dc93ab38a9069638cb57f75bd0ab75351`.
+The estimate multiplies quantity by 100 cents. Written at commit `0c8f9e1dc93ab38a9069638cb57f75bd0ab75351`.
 The limit is not implemented. Nothing has been tested for this change.
 
 ## Decisions
