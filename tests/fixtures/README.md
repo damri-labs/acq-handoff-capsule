@@ -7,4 +7,6 @@ pinned-TRIAL.md is the exact tracked TRIAL.md blob from merged main commit
 The offline regression verifies its full-file hash against SHA256SUMS for
 TRIAL.md and its extracted helper against the current card helper. Updating
 TRIAL.md intentionally requires reviewing and updating this pin and fixture.
+Contributor note: any TRIAL.md edit must update both README prompt pins and
+this fixture in the same PR, together with SHA256SUMS.
 No network execution is part of these tests.
