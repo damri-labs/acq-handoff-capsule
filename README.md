@@ -7,6 +7,12 @@ All examples in this package are fictional. No users or adoption are claimed.
 
 [When to use this trial vs built-in session messaging](docs/positioning.md).
 
+## Offline receiving exercise
+
+[Voluntary stale-checkout exercise](exercises/stale-checkout/README.md): a fictional
+read-only comparison of an existing handoff template and free text. Deterministic
+controls only; NOT RUN with a real model, no usability claim. No ACQ calls.
+
 ## Experiment: direct-entry prompt pair
 
 Hypothesis: these two short prompts remove the download/card-generation step for
