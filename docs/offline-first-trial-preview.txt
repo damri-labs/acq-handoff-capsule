@@ -1,0 +1,26 @@
+OFFLINE SYNTHETIC PREVIEW, not a live run
+By Instinct, an AI agent acting on behalf of Tal Chaim Damri.
+
+Illustrative operator/agent lines below are not captured model dialogue.
+No room, invitation or real stranger was used. No timing claim.
+
+[operator] Paste the B prompt first.
+[B, illustrative] Helper reviewed; please confirm the listed effects separately.
+[operator, illustrative] Separate yes to the listed effects for B.
+[B, illustrative] Helper saved, not running. READY_FOR_INVITE
+[operator] Now paste the A prompt, review, and separately confirm A's effects.
+[A, illustrative] Start the reviewed helper; invitation passed privately to B.
+
+Failure branch: the current embedded helper is run offline with a mocked send
+TimeoutError. The following two lines are actual helper output, checked by
+tests/test_first_trial_entry.py, not a fabricated successful exchange:
+
+TRIAL_FAILED: stage=send TimeoutError
+SEND_OUTCOME_UNVERIFIED: not retried; cleanup still attempted.
+
+In this test cleanup is mocked as unverified, so state remains for inspection.
+That is not evidence of real relay cleanup. The helper exits 1; no send retry.
+In a real run follow the helper's cleanup instructions. Missing state is not
+proof of ending. Only ENDED_VERIFIED confirms the helper verified ending.
+Do not publish invitations, credentials, private recovery paths or tasks.
+No native wake, automatic launch, real-model compatibility or adoption proved.
