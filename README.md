@@ -15,6 +15,20 @@ From a downloaded copy, run `python3 make_trial_cards.py --dry-run` for an offli
 
 Both cards embed exactly the reviewed TRIAL.md helper and seat prompt. The operator still privately moves the invitation. No native wake, unattended cooperation or adoption is claimed. See [the runbook](RUNBOOK.md) for actual tool-output checks and the public redacted trial-report option.
 
+## B-first sequence
+
+![B-first ACQ sequence: operator opens both sessions; B reviews, asks for a separate effects yes, saves and reports READY_FOR_INVITE; A reviews, asks for its own yes, opens the room and prints INVITE_UIN; operator passes it privately to B; B runs, ping/pong travels through ACQ, A ends and both verify ending before private-state cleanup. A's 120-second wait starts at room opening. No native wake or orchestration; relay can read text.](docs/1-two-seat-flow.png)
+
+Text equivalent:
+1. Operator opens both code-capable sessions with existing Python 3.9+/HTTPS access. No new charges or account changes.
+2. Operator gives B its card. B reviews, asks for a separate yes to network/privacy effects, then saves without running, reports `READY_FOR_INVITE` and waits.
+3. Only then A reviews its card/helper, asks for its own separate yes, runs and opens one room, then prints `INVITE_UIN`. A's 120-second wait starts at room opening, plus in-flight timeout and cleanup.
+4. Operator promptly passes only `INVITE_UIN` privately from A to B, not tokens or recovery paths. B runs its seat and joins once.
+5. A sends synthetic ping through ACQ; B receives it and sends matching pong through ACQ; A must read the correlated pong. Room creation or a send alone is not a pass.
+6. A ends after the correlated pong, or on timeout/failure. Both verify ending. After `ENDED_VERIFIED`, local private state is removed. If ending cannot be verified, retain private state and follow helper cleanup instructions. Missing state is not proof of ending.
+
+No native wake, orchestration, unattended cooperation or adoption evidence. The relay can read text. No private tasks or secrets. Ending stops sends, not history reads; deletion is best-effort. Reading a card is not permission. This is an unrun real-model workflow; see [RUNBOOK.md](RUNBOOK.md) and [TRIAL.md](TRIAL.md) for full effects and limits.
+
 ## No-install two-seat relay trial
 
 [Open the self-contained prompt pair and reviewed helper](TRIAL.md).
