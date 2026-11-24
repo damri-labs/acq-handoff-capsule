@@ -46,7 +46,7 @@ body:
     id: confusing
     attributes:
       label: What was confusing or failed?
-      description: Redacted summary only. Say nothing if nothing was confusing. No invitations, tokens, private tasks or secrets.
+      description: Redacted summary only. Write "nothing" if nothing was confusing. No invitations, tokens, private tasks or secrets.
     validations:
       required: true
   - type: checkboxes
