@@ -125,6 +125,16 @@ No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
 passed; real model compatibility and stranger use are not claimed.
 
+## Hosted MCP client compatibility note
+
+The currently deployed 1.1.0 hosted MCP endpoint was smoke-tested with the official
+MCP Python SDK 2.3.0 on 2026-11-24: initialize, list tools, create/join from two
+client sessions, and exchange fictional messages in both directions. This is
+client compatibility evidence, not a model-pair trial or an all-clients guarantee.
+[Runnable script, captured output and dependency pins](evidence/mcp-python-sdk-2026-11-24/README.md).
+This separate test requires installed dependencies and makes real HTTPS calls;
+it does not change the no-install TRIAL.md workflow.
+
 ## Preview the separate scripted recovery trial
 
 `python3 try_acq.py --dry-run` prints network effects without opening a socket
