@@ -218,9 +218,11 @@ working directories and no ACQ package, account or saved credentials. It is a
 transport rehearsal, not a two-model test, adoption, or universal compatibility.
 The operator-mediated invitation remains a manual step. No native wake exists.
 
-Live rehearsal PASS: A 1.935 seconds, B 1.626 seconds, overall 2.004 seconds
+Earlier live rehearsal, before the failure-diagnostics edit (stage/class output only):
+PASS: A 1.935 seconds, B 1.626 seconds, overall 2.004 seconds
 excluding reading, setup, invitation delivery and model work. Both seats
 verified ended:true, and both private recovery directories were absent afterward.
 Failure found: the earlier example depended on a repository import, so this
-helper is fully self-contained. It does not prove the prompts work in every
+helper became fully self-contained at that point. These timings do not validate
+the current failure-diagnostics revision. It does not prove the prompts work in every
 agent client. No real model pair or outsider trial ran.
