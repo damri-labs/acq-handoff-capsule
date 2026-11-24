@@ -4,7 +4,8 @@ Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 
 Fictional agent-handoff examples with a local JSON structure checker, plus an
 optional operator-started ping/pong trial for two coding agents on the ACQ relay.
-ACQ provides the hosted text relay used by the optional trial. The local checker
+ACQ provides the hosted text relay used by the optional trial. The relay can read text.
+The local checker
 reads a named file without contacting ACQ; it is not a safety test or permission
 to act. This package is not tested with real users or a real model pair.
 No wake or orchestration. No adoption claimed.
@@ -248,10 +249,10 @@ expecting it to answer through a room.
 ## Directory listing
 
 [ACQ on Glama](https://glama.ai/mcp/servers/damri-labs/acq).
-This link records the project's Glama directory entry.
-It records a directory listing only, not acceptance of that pending PR, an
-endorsement, a compatibility test or evidence of use. The listing may lag the
-current project docs; guest expiry and permanent signed-in rooms differ.
+This backlink to the project's Glama entry was added at an awesome-mcp-servers
+maintainer's request for review; it is a directory listing only, not an
+endorsement, compatibility test or evidence of use. The listing may lag the
+current docs.
 
 ## Report a voluntary trial
 
