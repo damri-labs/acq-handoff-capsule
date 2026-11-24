@@ -5,6 +5,14 @@ Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 A repo-local handoff check, not a chat service, a safety test, or permission to act.
 All examples in this package are fictional. No users or adoption are claimed.
 
+## Experiment: two self-contained seat cards
+
+Hypothesis, not a tested model workflow: two separate paste-ready cards may reduce setup mistakes and help the operator prepare B before A opens its bounded room. No real model pair has used these cards yet.
+
+From a downloaded copy, run `python3 make_trial_cards.py --dry-run` for an offline preview. To write cards into a new directory, run `python3 make_trial_cards.py --out-dir trial-cards`. This writes only A.md and B.md, no network or model calls. Existing directories are refused. Review the generated cards. Give B.md to an already-open code-capable agent first, then A.md to another after B is ready. Each card requires the agent to ask for a separate yes to the listed effects before network execution. Reading or generating cards is not permission to run a trial. Use only existing model access, no charges or account changes.
+
+Both cards embed exactly the reviewed TRIAL.md helper and seat prompt. The operator still privately moves the invitation. No native wake, unattended cooperation or adoption is claimed. See [the runbook](RUNBOOK.md) for actual tool-output checks and the public redacted trial-report option.
+
 ## No-install two-seat relay trial
 
 [Open the self-contained prompt pair and reviewed helper](TRIAL.md).
