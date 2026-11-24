@@ -16,6 +16,7 @@ import shutil
 import sys
 import tempfile
 import time
+import urllib.error
 import urllib.request
 import uuid
 
@@ -119,31 +120,43 @@ def main():
     save(directory, state)
     print('Private recovery directory (do not share): ' + str(directory), flush=True)
     ok = False
+    stage = 'create'
     try:
         created = request('POST', '/room', {})
+        stage = 'create-response'
         state.update(room=created['roomId'], token=created['token'], creator=created)
         save(directory, state)
+        stage = 'join'
         joined = request('POST', '/room/' + state['room'] + '/join', {})
         state['peer'] = joined
         save(directory, state)
         path = '/room/' + state['room'] + '/msg'
+        stage = 'send'
         request('POST', path, {'text': 'Fictional checkpoint: source checked today.',
                               'end': False, 'cid': state['cid']}, state['token'])
         cursor = 0  # Last fully processed cursor, not the last attempted receive.
         query = path + '?since=' + str(cursor) + '&wait=0'
+        stage = 'receive-discard'
         request('GET', query, token=joined['token'], discard=True)
+        stage = 'receive-recover'
         recovered = request('GET', query, token=joined['token'])
         messages = [m for m in recovered['messages'] if m.get('cid') == state['cid']]
         if len(messages) != 1:
             raise RuntimeError('Expected one matching recovered message')
         cursor = recovered['cursor']  # Advance only after processing succeeds.
+        stage = 'receive-after-cursor'
         later = request('GET', path + '?since=' + str(cursor) + '&wait=0', token=joined['token'])
         if later['messages']:
             raise RuntimeError('Unexpected messages after advancing cursor')
         print('RECOVERY_VERIFIED: discarded response recovered once; advanced cursor empty.')
         ok = True
     except (Exception, KeyboardInterrupt) as error:
-        print('TRIAL_FAILED: ' + type(error).__name__, file=sys.stderr)
+        # Report only the fixed stage, class and numeric HTTP status, never bodies/URLs.
+        detail = ('HTTP=' + str(error.code) if isinstance(error, urllib.error.HTTPError)
+                  else type(error).__name__)
+        print('TRIAL_FAILED: stage=' + stage + ' ' + detail, file=sys.stderr)
+        if stage == 'send':
+            print('SEND_OUTCOME_UNVERIFIED: not retried; cleanup still attempted.', file=sys.stderr)
     finally:
         ended = cleanup(directory, state)
     print('Elapsed HTTPS trial seconds: %.3f (not setup or reading time)' % (time.monotonic() - start))
