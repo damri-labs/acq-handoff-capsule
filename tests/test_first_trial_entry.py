@@ -1,6 +1,8 @@
 """Offline checks of the new direct-entry experiment, not a model-client test."""
 import contextlib
 import io
+import hashlib
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -58,3 +60,15 @@ class FirstTrialEntry(unittest.TestCase):
         text = (cards.ROOT / 'docs/sample-transcript.md').read_text()
         self.assertIn('before the failure-diagnostics edit', text)
         self.assertNotIn('# Current-helper', text)
+
+    def test_prompts_pin_same_reviewed_blob(self):
+        readme = (cards.ROOT / 'README.md').read_text()
+        fold = readme.split('## Experiment: direct-entry prompt pair', 1)[1].split('## Experiment: two self-contained', 1)[0]
+        pins = re.findall(r'https://github.com/damri-labs/acq-handoff-capsule/blob/([0-9a-f]{40})/TRIAL.md', fold)
+        self.assertEqual(pins, ['6743a399e676c2681def076148264862035a509a'] * 2)
+        self.assertIn('python3 trial.py B <the invitation UIN I give you>', fold)
+        snapshot = (cards.ROOT / 'tests/fixtures/pinned-TRIAL.md').read_bytes()
+        manifest = dict(line.split('  ', 1)[::-1] for line in (cards.ROOT / 'SHA256SUMS').read_text().splitlines())
+        self.assertEqual(hashlib.sha256(snapshot).hexdigest(), manifest['TRIAL.md'])
+        helper = snapshot.decode().split('```python\n', 1)[1].split('\n```', 1)[0] + '\n'
+        self.assertEqual(hashlib.sha256(helper.encode()).hexdigest(), hashlib.sha256(cards.sections()[1].encode()).hexdigest())
