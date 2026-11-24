@@ -47,3 +47,12 @@ class CardTests(unittest.TestCase):
             with patch.object(sys, 'argv', ['make_trial_cards.py', '--out-dir', str(target)]), contextlib.redirect_stderr(io.StringIO()):
                 self.assertEqual(cards.main(), 1)
             self.assertEqual((target / 'A.md').read_bytes(), before)
+
+    def test_runbook_matches_separate_confirmation_and_readiness_order(self):
+        text = (cards.ROOT / 'RUNBOOK.md').read_text(encoding='utf-8')
+        self.assertLess(text.index('Give B `trial-cards/B.md`'), text.index('give A `trial-cards/A.md`'))
+        self.assertLess(text.index('READY_FOR_INVITE'), text.index('give A `trial-cards/A.md`'))
+        self.assertIn('own separate effects confirmation', text)
+        self.assertIn('same separate effects confirmations', text)
+        self.assertIn("starts when its room opens", text)
+        self.assertIn('offline preparation only, not permission', text)
