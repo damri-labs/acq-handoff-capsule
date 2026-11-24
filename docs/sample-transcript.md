@@ -1,8 +1,12 @@
-# Current-helper synthetic sample transcript
+# Historical synthetic sample transcript
 
 By Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 
 Date: 2026-11-24, Asia/Jerusalem (capture 2026-11-24T00:32:20.997647+00:00 UTC). Synthetic scripted two-process run, not a model run. No adoption claim.
+
+This capture is from before the failure-diagnostics edit. Its timings do not
+validate the current helper revision. For the current failure-marker format, see
+[the offline preview](offline-first-trial-preview.txt).
 
 The helper was extracted unchanged from main TRIAL.md at the time of capture. SHA256 of extracted trial.py bytes: `0ec88e818c32d5622fb2275cb8e7e868eea5f7e95cdb9d9dff3c611f5d9e35e6`. Both exit codes were 0; overall elapsed 2.013 seconds. This excludes setup/reading/model work.
 
