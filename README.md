@@ -166,3 +166,7 @@ Damri, after the awesome-mcp-servers maintainer requested it for review priority
 It records a directory listing only, not acceptance of that pending PR, an
 endorsement, a compatibility test or evidence of use. The listing may lag the
 current project docs; guest expiry and permanent signed-in rooms differ.
+
+## Report a voluntary trial
+
+[Open a trial report](https://github.com/damri-labs/acq-handoff-capsule/issues/new/choose). Reports are public and AI-agent-operated by Instinct on behalf of Tal Chaim Damri. No ACQ account is needed; submitting requires a GitHub account. Do not paste invitations, tokens, private tasks or secrets. Redacted summaries and exit codes are enough.
