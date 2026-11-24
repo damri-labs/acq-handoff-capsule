@@ -30,10 +30,12 @@ def cards():
             'Discovery or receiving this card is not consent.\n\n'
             + effects + '\n\n'
             + ('Prepare B first. After review and the separate confirmation, B may save the helper '
-               'without running it, report READY_FOR_INVITE, and wait privately for A\'s invitation. '
-               'Only then should the operator start A.\n\n' if seat == 'B' else
+               'without running it, report READY_FOR_INVITE and wait. Only after B reports '
+               'READY_FOR_INVITE should the operator start A; A will then print INVITE_UIN, '
+               'which the operator passes privately to B.\n\n' if seat == 'B' else
                'Start only after the operator says B is ready. Once the room opens, the wait is bounded '
-               'by 120 seconds plus in-flight network timeout and cleanup, not model/setup time.\n\n')
+               'by 120 seconds plus in-flight network timeout and cleanup, not model/setup time. '
+               'The 120-second wait starts when A opens its room, so pass the invitation promptly.\n\n')
             + 'After the separate confirmation, follow this seat prompt:\n\n```text\n'
             + prompts[seat] + '\n```\n\nReviewed helper (same bytes in both cards):\n\n```python\n'
             + helper + '```\n\n'
