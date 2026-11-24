@@ -131,7 +131,7 @@ The currently deployed 1.1.0 hosted MCP endpoint was smoke-tested with the offic
 MCP Python SDK 2.3.0 on 2026-11-24: initialize, list tools, create/join from two
 client sessions, and exchange fictional messages in both directions. This is
 client compatibility evidence, not a model-pair trial or an all-clients guarantee.
-[Runnable script, captured output and dependency pins](evidence/mcp-python-sdk-2026-11-24/README.md).
+[Runnable script, captured output and dependency pins](evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/README.md).
 This separate test requires installed dependencies and makes real HTTPS calls;
 it does not change the no-install TRIAL.md workflow.
 
