@@ -31,7 +31,7 @@ Measured seat seconds: 1.611; excludes setup/reading/model work.
 
 ## Offline preview of separate scripted recovery helper
 
-Command: `python3 try_acq.py --dry-run`. Exit 0. This is not the two-process helper above. SHA256 of try_acq.py: `32d90c89c04e2db382d3aa3ee23b827e647e877b47aa93357352c55a3532fdda`.
+Command: `python3 try_acq.py --dry-run`. Exit 0. This is not the two-process helper above. Preview captured from the merged PR13 version of try_acq.py, before PR14 cleanup validation. SHA256 of those historical bytes: `32d90c89c04e2db382d3aa3ee23b827e647e877b47aa93357352c55a3532fdda`.
 
 ```text
 DRY_RUN: zero network calls; no room, files or private state created.
@@ -59,6 +59,6 @@ By Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 
 ## Scope of this evidence
 
-This capture shows a successful synthetic ping/pong and verified ending, and the offline preview output. It does not commit evidence of prior interruption, unreachable-relay or timeout rehearsals, prove real-client skill triggering, authenticate model execution, or prove literal120-second no-peer behavior. Those earlier local rehearsals remain labeled not committed in the technical write-up.
+This capture shows a successful synthetic ping/pong and verified ending, and the offline preview output. It does not commit evidence of prior interruption, unreachable-relay or timeout rehearsals, prove real-client skill triggering, authenticate model execution, or prove literal 120-second no-peer behavior. Those earlier local rehearsals remain labeled not committed in the technical write-up.
 
 During capture preparation, an invitation-line parsing mistake left a first scripted room without B until the runner was stopped. Its saved-state cleanup was then run and reported ENDED_VERIFIED before the successful fresh run above. No credentials or invitation are included here.
