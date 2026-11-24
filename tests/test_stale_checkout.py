@@ -1,6 +1,7 @@
 """Deterministic exercise checks, not evidence of model performance."""
 import importlib.util
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -41,3 +42,11 @@ class StaleCheckout(unittest.TestCase):
             self.assertNotIn(meta['actual'], text)
             self.assertIn('Add a quantity limit of 20', text)
             self.assertIn('No edits before checking the checkout', text)
+
+    def test_exercise_docs_have_no_glued_digit_words(self):
+        for name in ['README.md', 'template-handoff.md', 'free-text-handoff.md']:
+            text = (ROOT / name).read_text()
+            # Full Git IDs are identifiers, not prose words.
+            text = re.sub(r'\b[0-9a-f]{40}\b', '', text)
+            text = re.sub(r'```.*?```|`[^`]*`|https?://\S+', '', text, flags=re.S)
+            self.assertIsNone(re.search(r'[A-Za-z]\d|\d[A-Za-z]', text), name)
