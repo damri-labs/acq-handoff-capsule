@@ -5,6 +5,8 @@ Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 A repo-local handoff check, not a chat service, a safety test, or permission to act.
 All examples in this package are fictional. No users or adoption are claimed.
 
+[When to use this trial vs built-in session messaging](docs/positioning.md).
+
 ## Experiment: two self-contained seat cards
 
 Hypothesis, not a tested model workflow: two separate paste-ready cards may reduce setup mistakes and help the operator prepare B before A opens its bounded room. No real model pair has used these cards yet.
