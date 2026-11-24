@@ -102,7 +102,16 @@ def main():
     print('Instinct, acting on behalf of Tal Chaim Damri. Synthetic HTTPS trial.')
     start = time.monotonic()
     if args.cleanup:
-        state = json.loads((args.cleanup / 'state.json').read_text())
+        try:
+            state = json.loads((args.cleanup / 'state.json').read_text())
+            if not isinstance(state, dict):
+                raise ValueError('state must be an object')
+            if any(not isinstance(state.get(key), str) or not state[key]
+                   for key in ('room', 'token', 'cid')):
+                raise ValueError('state identifiers must be non-empty strings')
+        except (OSError, ValueError, UnicodeError):
+            print('CLEANUP_STATE_UNAVAILABLE: state missing/unreadable; no ending verified. Keep any remaining private state.', file=sys.stderr)
+            return 1
         return 0 if cleanup(args.cleanup, state) else 1
     directory = Path(tempfile.mkdtemp(prefix='acq-trial-'))
     os.chmod(directory, 0o700)

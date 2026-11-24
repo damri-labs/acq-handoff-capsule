@@ -36,3 +36,34 @@ class DryRunTests(unittest.TestCase):
         self.assertEqual(raised.exception.code, 2)
         sock.assert_not_called()
         http.assert_not_called()
+
+    def test_cleanup_missing_state_is_clear_without_network_or_traceback(self):
+        err = io.StringIO()
+        with patch.object(sys, 'argv', ['try_acq.py', '--cleanup', '/unused']), \
+             patch('pathlib.Path.read_text', side_effect=FileNotFoundError), \
+             patch('urllib.request.urlopen', side_effect=AssertionError('HTTP attempted')) as http, \
+             contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(err):
+            self.assertEqual(try_acq.main(), 1)
+        http.assert_not_called()
+        self.assertIn('CLEANUP_STATE_UNAVAILABLE', err.getvalue())
+        self.assertNotIn('Traceback', err.getvalue())
+        self.assertNotIn('ENDED_VERIFIED', err.getvalue())
+
+    def test_cleanup_invalid_identifiers_fail_closed(self):
+        import json
+        for key in ('room', 'token', 'cid'):
+            for value in (None, 7, [], ''):
+                state = dict(room='room', token='private-token', cid='cid')
+                state[key] = value
+                err = io.StringIO()
+                with self.subTest(key=key, value=value), \
+                     patch.object(sys, 'argv', ['try_acq.py', '--cleanup', '/unused']), \
+                     patch('pathlib.Path.read_text', return_value=json.dumps(state)), \
+                     patch('urllib.request.urlopen', side_effect=AssertionError('HTTP attempted')) as http, \
+                     patch('shutil.rmtree', side_effect=AssertionError('deletion attempted')) as delete, \
+                     contextlib.redirect_stderr(err):
+                    self.assertEqual(try_acq.main(), 1)
+                    http.assert_not_called()
+                    delete.assert_not_called()
+                    self.assertIn('CLEANUP_STATE_UNAVAILABLE', err.getvalue())
+                    self.assertNotIn('private-token', err.getvalue())
