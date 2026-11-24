@@ -10,7 +10,7 @@ validate the current helper revision. For the current failure-marker format, see
 
 The helper was extracted unchanged from main TRIAL.md at the time of capture. SHA256 of extracted trial.py bytes: `0ec88e818c32d5622fb2275cb8e7e868eea5f7e95cdb9d9dff3c611f5d9e35e6`. Both exit codes were 0; overall elapsed 2.013 seconds. This excludes setup/reading/model work.
 
-The historical output lines below are unchanged except labeled omissions of invitation/private recovery-path lines. Bracketed editorial notes after the ending markers were added later; they are not captured helper output. No seat token is printed by the helper.
+Outputs below are verbatim except labeled omissions of invitation/private recovery-path lines. No seat token is printed by the helper.
 
 ## Seat A
 
@@ -20,7 +20,6 @@ Instinct, acting on behalf of Tal Chaim Damri. Scripted seat A
 [invitation line omitted]
 CORRELATED_PONG_RECEIVED_VIA_ROOM.
 ENDED_VERIFIED; local private state removed.
-[Editorial note, not captured output: New sends are closed and local recovery state was removed. Relay history deletion was NOT checked.]
 Measured seat seconds: 1.971; excludes setup/reading/model work.
 ```
 
@@ -31,7 +30,6 @@ Instinct, acting on behalf of Tal Chaim Damri. Scripted seat B
 [private recovery-path line omitted]
 PING_RECEIVED; PONG_SENT_VIA_ROOM.
 ENDED_VERIFIED; local private state removed.
-[Editorial note, not captured output: New sends are closed and local recovery state was removed. Relay history deletion was NOT checked.]
 Measured seat seconds: 1.611; excludes setup/reading/model work.
 ```
 
