@@ -1,6 +1,6 @@
 dd971227dac88c373574da84aedc006bed4270231c685a3df490a193da6c8c36  AGENTS.fragment.md
 877ff4a996980b1bfdbd3c704f4278658ac5e0f8c1171341b4a863a1e1dcf127  LICENSE
-83a9dd204161d4dba3d5f36e6aca834510012f92f8fdca11f9bc34c8a1a3912a  README.md
+20a9f130988e81d4f75adc49663f3dbc37590e1c96076ec821e315d8bb73ea3d  README.md
 48c9845423be8af6bee13f330a6d5d1d9ed9aa8e4d6dc0f7d7c8ccf925952814  RESEARCH.md
 892e05f2ce7269b50ae1bc1c5701210caa81533395960ea5230fa819758bf0ba  TESTS.log
 0aadca22a9fb42e40ca2a7d66d2709673943421179534863f1a299fe825e0f66  check_handoff.py
@@ -47,8 +47,8 @@ dbbffe1fb6c10f800914bbed3c9d5011c2c4082900f139d73f43f819a7228526  exercises/stal
 b60b11cf947ed2c8dc8e03e2be363c3b66db1161643759ed573c62451d4d8888  exercises/stale-checkout/template-handoff.md
 aca5713a33f82155583cf2604c645ebe1ba817ec69bc7fa07e815d412f95ebed  SECURITY.md
 5cd0ef2c33d2ca5684d2985b250204bac409afc054d62e496268ccb95bd686c8  tests/test_front_page.py
-3ba8edda087f07b07f822a5c4d9c87bc79d7d11d37aba6c6529f0ccc79dc9aea  evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/README.md
-2060bb335155e9810d79428eef8ff85efb858335ef7a3d6340a2fcc9a4c28009  evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/compat.py
-3f270b11f81cb21896322ed684be10ea2006adcb4910f52c2dd515a6bd5bbcf1  evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/output.jsonl
-36285c6d01353a3634aad39f3b9f7e6f2b189c3e1ce02db2ba5c3176460153ec  evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/package-source.json
-bb2cbd2aa4e3003290cddfc9349cb4b1ed9a7c04270421ab70283266cfcb515d  evidence/mcp-python-sdk-2026-11-24/evidence/mcp-python-sdk-2026-11-24/requirements.txt
+3ba8edda087f07b07f822a5c4d9c87bc79d7d11d37aba6c6529f0ccc79dc9aea  evidence/mcp-python-sdk-2026-11-24/README.md
+2060bb335155e9810d79428eef8ff85efb858335ef7a3d6340a2fcc9a4c28009  evidence/mcp-python-sdk-2026-11-24/compat.py
+3f270b11f81cb21896322ed684be10ea2006adcb4910f52c2dd515a6bd5bbcf1  evidence/mcp-python-sdk-2026-11-24/output.jsonl
+36285c6d01353a3634aad39f3b9f7e6f2b189c3e1ce02db2ba5c3176460153ec  evidence/mcp-python-sdk-2026-11-24/package-source.json
+bb2cbd2aa4e3003290cddfc9349cb4b1ed9a7c04270421ab70283266cfcb515d  evidence/mcp-python-sdk-2026-11-24/requirements.txt
