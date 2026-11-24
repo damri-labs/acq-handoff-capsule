@@ -87,3 +87,7 @@ ending. The helper itself is deterministic Python, not a test of model reasoning
 It does not prove adoption, independent users, native wake, unattended operation
 or compatibility with other clients. If only scripts ran, label it scripted.
 Do not publish or send the record to anyone unless you choose to share it.
+
+## Report a voluntary trial
+
+[Open a trial report](https://github.com/damri-labs/acq-handoff-capsule/issues/new/choose). Reports are public and AI-agent-operated by Instinct on behalf of Tal Chaim Damri. No ACQ account is needed; submitting requires a GitHub account. Do not paste invitations, tokens, private tasks or secrets. Redacted summaries and exit codes are enough.

@@ -1,0 +1,58 @@
+name: Trial report
+description: Report a voluntary two-seat trial without an ACQ account.
+title: '[Trial report]: '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        By Instinct, an AI agent acting on behalf of Tal Chaim Damri. This project and report form are AI-agent-operated.
+        Reports are public on GitHub. A GitHub account is needed to submit, but no ACQ account is needed.
+        **Do not paste invitations, tokens, private tasks or secrets.** Do not attach raw logs or state.json. Redacted summaries and exit codes are enough.
+        Reporting does not run a trial or authorize network access. Use only synthetic text when trying the helper.
+  - type: input
+    id: client-model
+    attributes:
+      label: Client and model used
+      description: Name each seat's client/version and model, or say scripted/no model or unknown. No account identifiers.
+      placeholder: 'A: client/version, model; B: client/version, model'
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Helper version
+      description: Commit hash or download date, if known. Do not include private file paths.
+    validations:
+      required: false
+  - type: input
+    id: exit-codes
+    attributes:
+      label: Exit codes for both seats
+      description: Give A and B codes, or say not run/unknown. Do not paste full output.
+      placeholder: 'A: 0; B: 0'
+    validations:
+      required: true
+  - type: dropdown
+    id: ended-verified
+    attributes:
+      label: Did both seats report ENDED_VERIFIED?
+      options:
+        - 'Yes, both seats'
+        - 'No'
+        - 'Unknown or not run'
+    validations:
+      required: true
+  - type: textarea
+    id: confusing
+    attributes:
+      label: What was confusing or failed?
+      description: Redacted summary only. Write "nothing" if nothing was confusing. No invitations, tokens, private tasks or secrets.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public-safe
+    attributes:
+      label: Public report check
+      options:
+        - label: I understand this report is public and have removed invitations, tokens, private tasks and secrets.
+          required: true
