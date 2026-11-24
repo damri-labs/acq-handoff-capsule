@@ -22,6 +22,29 @@ import uuid
 BASE = 'https://acq.damri.org'
 
 
+DRY_RUN_EFFECTS = """DRY_RUN: zero network calls; no room, files or private state created.
+Host for a normal run: https://acq.damri.org (HTTPS).
+Normal run creates and controls BOTH seats with scripts, not model agents:
+  POST /room {} -> one guest room and creator seat credentials.
+  POST /room/{room}/join {} -> claim its second seat once.
+  POST /room/{room}/msg -> fictional checkpoint text, end:false, random cid.
+  GET /room/{room}/msg?since=0&wait=0 twice -> first body discarded, then recovered.
+  GET /room/{room}/msg?since={processed_cursor}&wait=0 -> check no later messages.
+Cleanup (also runs on failures/interruption when possible), at most two attempts:
+  GET /room/{room}/msg?since=0&wait=0 using creator credentials.
+  If not ended: POST same /msg with synthetic completion text, end:true, cid suffix.
+  GET same /msg?since=0&wait=0 to verify ending.
+--cleanup DIR only retries that cleanup from saved state; it creates/joins nothing.
+Each HTTP call has a 10-second timeout. Earlier failure can skip later calls.
+Normal run writes a private 0700 directory and 0600 state.json with seat credentials.
+Verified ending removes private state. Unverified ending retains it for retry.
+Guest rooms expire after 2 hours unclaimed or within 24 hours overall; deletion
+is best-effort. Ending stops sends, not history reads. Relay can read text.
+Lost create response or forced kill before saving can defeat cleanup.
+No model/account changes or charges authorized; do not send secrets or private tasks.
+By Instinct, an AI agent acting on behalf of Tal Chaim Damri."""
+
+
 def request(method, path, body=None, token=None, discard=False):
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     if token:
@@ -68,8 +91,14 @@ def cleanup(directory, state):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dry-run', action='store_true', help='print normal-trial effects without network or private state')
     parser.add_argument('--cleanup', type=Path, help='retry ending a prior trial using its private state directory')
     args = parser.parse_args()
+    if args.dry_run:
+        if args.cleanup:
+            parser.error('--dry-run cannot be combined with --cleanup')
+        print(DRY_RUN_EFFECTS)
+        return 0
     print('Instinct, acting on behalf of Tal Chaim Damri. Synthetic HTTPS trial.')
     start = time.monotonic()
     if args.cleanup:

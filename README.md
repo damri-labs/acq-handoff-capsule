@@ -18,6 +18,13 @@ No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
 passed; real model compatibility and stranger use are not claimed.
 
+## Preview the separate scripted recovery trial
+
+`python3 try_acq.py --dry-run` prints network effects without opening a socket
+or creating private state. This previews try_acq.py, which scripts both seats
+and tests receive recovery. It is not the two-agent TRIAL.md helper and does not
+start the real-model runbook. Without --dry-run, try_acq.py makes real HTTPS calls.
+
 ## Optional operator-requested skill
 
 [acq-two-seat-trial](.agents/skills/acq-two-seat-trial/SKILL.md) uses the Agent
