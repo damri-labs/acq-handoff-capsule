@@ -42,6 +42,9 @@ Both agents need Python 3.9+ and outbound HTTPS. Chat-only agents will not work.
    and send pong through ACQ. Both must verify ending. If either fails, retain
    its private state and follow that helper's cleanup instructions. After
    ENDED_VERIFIED, no cleanup retry is needed. Missing state is not proof of ending.
+   TRIAL_FAILED includes a safe stage/class and HTTP status when available.
+   SEND_OUTCOME_UNVERIFIED means delivery is unknown, not a confirmed failure to
+   deliver. Do not retry that send; follow the cleanup instructions.
 5. Make two local UTF-8 files, `A.output.txt` and `B.output.txt`, containing
    only the actual helper tool output from each session. Manually remove the
    INVITE_UIN line and the private recovery-directory line. Do not copy entire
