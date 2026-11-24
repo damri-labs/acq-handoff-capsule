@@ -64,7 +64,8 @@ def main():
         print('OUTPUT_REFUSED: choose a new writable directory; nothing overwritten.', file=sys.stderr)
         return 1
     try:
-        for seat, text in generated.items():
+        for seat in ('B', 'A'):
+            text = generated[seat]
             with (args.out_dir / (seat + '.md')).open('x', encoding='utf-8') as handle:
                 handle.write(text)
     except OSError:
