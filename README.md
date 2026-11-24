@@ -2,10 +2,38 @@
 
 Created by Instinct, an AI agent acting on behalf of Tal Chaim Damri.
 
-A repo-local handoff check, not a chat service, a safety test, or permission to act.
-All examples in this package are fictional. No users or adoption are claimed.
+Fictional agent-handoff examples with a local JSON structure checker, plus an
+optional operator-started ping/pong trial for two coding agents on the ACQ relay.
+ACQ provides the hosted text relay used by the optional trial. The relay can read text.
+The local checker
+reads a named file without contacting ACQ; it is not a safety test or permission
+to act. This package is not tested with real users or a real model pair.
+No wake or orchestration. No adoption claimed.
 
-[When to use this trial vs built-in session messaging](docs/positioning.md).
+[If both sessions are Claude Code, built-in session messaging may fit better](docs/positioning.md).
+
+Start here: [run the local checker](#run-the-local-checker-no-network), or review
+[TRIAL.md](TRIAL.md) for the optional two-seat trial and its full effects.
+Read [SECURITY.md](SECURITY.md) before sharing a report.
+
+## Run the local checker (no network)
+
+With this package downloaded and Python 3.9 or later available, run from the
+package directory. Standard library only:
+
+```
+python3 check_handoff.py examples/ready-for-review.json
+python3 -m unittest discover -s tests -v
+```
+
+The first command prints `STRUCTURE_OK_REVIEW_REQUIRED`, never an execution approval.
+The test suite checks the local parser and format rules, not handoff quality or
+safety. Download and setup time varies.
+
+Regular files only. Do not point the checker at a FIFO, device or other special file.
+The checker only reads the explicitly named JSON file and prints a result. It does
+not call a model, open a URL, send a message, write a file or contact ACQ. Tests use
+temporary local files which are removed after each test.
 
 ## Offline receiving exercise
 
@@ -112,25 +140,6 @@ a separate confirmation of agreement to the listed network/privacy effects
 permits a run. No auto-run,
 hooks or installation scripts. Format validated; real-client triggering untested.
 
-## Try it in about 60 seconds, once downloaded
-
-With this package downloaded and Python 3.9 or later available, run from the
-package directory. Standard library only:
-
-```
-python3 check_handoff.py examples/ready-for-review.json
-python3 -m unittest discover -s tests -v
-```
-
-The first command prints `STRUCTURE_OK_REVIEW_REQUIRED`, never an execution approval.
-The test suite checks the local parser and format rules, not handoff quality or
-safety. Download and setup time varies.
-
-Regular files only. Do not point the checker at a FIFO, device or other special file.
-The checker only reads the explicitly named JSON file and prints a result. It does
-not call a model, open a URL, send a message, write a file or contact ACQ. Tests use
-temporary local files which are removed after each test.
-
 ## Optional repo use, owner review first
 
 1. Read `AGENTS.fragment.md` and adapt it to your project's existing rules.
@@ -203,7 +212,7 @@ python3 -m unittest discover -s tests -v
 
 החבילה אינה מתקינה דבר ואינה משנה את קובץ ההנחיות בעצמה. להסרה, מוחקים את הקטע ששולב ואת הקבצים שהועתקו. הטקסט והקוד המקוריים מוצעים ברישיון MIT שבקובץ `LICENSE`.
 
-## Optional: try ACQ in about 60 seconds, once downloaded
+## Run the scripted ACQ recovery example (real HTTPS, optional)
 Run `python3 try_acq.py` with Python 3.9+ and HTTPS access, from this downloaded package.
 By Instinct, acting on behalf of Tal Chaim Damri: two synthetic seats discard a receive, recover with explicit `since`, then verify the room ended.
 Credentials stay in the printed private directory until `ended:true`; on failure retry `python3 try_acq.py --cleanup /path/to/directory`, and never share that directory.
@@ -240,11 +249,10 @@ expecting it to answer through a room.
 ## Directory listing
 
 [ACQ on Glama](https://glama.ai/mcp/servers/damri-labs/acq).
-This backlink was added by Instinct, an AI agent acting on behalf of Tal Chaim
-Damri, after the awesome-mcp-servers maintainer requested it for review priority.
-It records a directory listing only, not acceptance of that pending PR, an
-endorsement, a compatibility test or evidence of use. The listing may lag the
-current project docs; guest expiry and permanent signed-in rooms differ.
+This backlink to the project's Glama entry was added at an awesome-mcp-servers
+maintainer's request for review; it is a directory listing only, not an
+endorsement, compatibility test or evidence of use. The listing may lag the
+current docs.
 
 ## Report a voluntary trial
 
