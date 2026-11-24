@@ -10,6 +10,7 @@ All examples in this package are fictional. No users or adoption are claimed.
 [Open the self-contained prompt pair and reviewed helper](TRIAL.md).
 
 [בעברית: ניסוי לשני סוכנים, בלי התקנת חבילה](TRIAL.he.md).
+[תיעוד החזרה הטכנית בעברית](docs/technical-rehearsal.he.md).
 
 [Owner runbook: run once with real agents and check the local output](RUNBOOK.md).
 Status: not yet run with a real model pair. [Captured synthetic sample output](docs/sample-transcript.md).
