@@ -12,7 +12,7 @@ All examples in this package are fictional. No users or adoption are claimed.
 [בעברית: ניסוי לשני סוכנים, בלי התקנת חבילה](TRIAL.he.md).
 
 [Owner runbook: run once with real agents and check the local output](RUNBOOK.md).
-Status: not yet run with a real model pair.
+Status: not yet run with a real model pair. [Captured synthetic sample output](docs/sample-transcript.md).
 
 No account, MCP setup or package install. Requires two operator-started
 code-capable agents with Python 3.9+ and HTTPS. Scripted transport rehearsal
