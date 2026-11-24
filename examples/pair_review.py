@@ -122,7 +122,7 @@ def main():
         cursor = r['cursor']
         r = trial.request('GET', path + '?since=' + str(cursor) + '&wait=0', token=state['token'])
         assert r['messages'] == [], 'Unexpected duplicate after cursor advance'
-        print('VERDICT_RETURNED_VIA_ROOM: clips 500; total 875; claimed825 incorrect.')
+        print('VERDICT_RETURNED_VIA_ROOM: clips 500; total 875; claimed 825 incorrect.')
         print('EXPLICIT_SINCE_RECOVERY_VERIFIED; no duplicate after cursor advance.')
         ok = True
     except (Exception, KeyboardInterrupt) as error:
