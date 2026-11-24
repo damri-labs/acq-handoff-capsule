@@ -18,7 +18,10 @@ class CardTests(unittest.TestCase):
             self.assertIn('separate yes', card)
             self.assertIn('not consent', card)
             self.assertIn('The relay can read text', card)
-        self.assertIn('READY_FOR_INVITE', cards.cards()['B'])
+        self.assertIn('Only after B reports READY_FOR_INVITE should the operator start A', cards.cards()['B'])
+        self.assertIn('operator passes privately to B', cards.cards()['B'])
+        self.assertIn('120-second wait starts when A opens its room', cards.cards()['A'])
+        self.assertIn('pass the invitation promptly', cards.cards()['A'])
 
     def test_dry_run_no_network_or_writes(self):
         source = (cards.ROOT / 'TRIAL.md').read_text()
