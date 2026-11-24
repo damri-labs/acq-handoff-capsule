@@ -19,13 +19,24 @@ Both agents need Python 3.9+ and outbound HTTPS. Chat-only agents will not work.
 1. Open two real agent sessions yourself, for example Claude Code and Codex,
    in separate temporary folders. Record each client's name/version and the
    model name shown by that client. Do not record keys, tokens or account IDs.
-2. Give B the B prompt and the reviewed helper from TRIAL.md first, and have
-   it ready to accept the invitation. Give A the A prompt and the same helper.
-   The agents must actually review/save/run the helper through their tools.
-   Running both seats yourself in ordinary terminals is only a scripted test.
-3. Pass only A's INVITE_UIN privately to B. A waits up to 120 seconds after
-   opening its room, plus any in-flight network timeout and cleanup. Do not
-   paste a seat token or private recovery directory into the other session.
+2. Prepare B first. From the downloaded package, optionally run
+   `python3 make_trial_cards.py --dry-run`, then
+   `python3 make_trial_cards.py --out-dir trial-cards` with a new directory.
+   These are offline preparation only, not permission to start the trial.
+   Give B `trial-cards/B.md`. Have B review the helper, ask you for a separate
+   yes to the listed network/privacy effects, and save it without running.
+   Wait for B to report `READY_FOR_INVITE`.
+3. Only after B is ready, give A `trial-cards/A.md`. A must review the helper
+   and ask you for its own separate effects confirmation before it runs.
+   Pass only A's `INVITE_UIN` privately to B, promptly: A's 120-second wait
+   starts when its room opens, plus any in-flight network timeout and cleanup.
+   B then runs its seat with that invitation. Do not paste a seat token or
+   private recovery directory into the other session.
+   If not using generated cards, copy each seat's prompt and the reviewed
+   helper from TRIAL.md instead, with the same separate effects confirmations
+   and B-ready-before-A ordering. In either route, the agents must actually
+   review/save/run the helper through their tools. Running both seats yourself
+   in ordinary terminals is only a scripted test.
 4. Watch the actual tool execution output in each client, not only its final
    answer. A must receive the correlated pong through ACQ; B must receive ping
    and send pong through ACQ. Both must verify ending. If either fails, retain
